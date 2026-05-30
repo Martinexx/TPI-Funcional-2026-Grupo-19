@@ -33,3 +33,12 @@ IMPACTO: no destructiva
 			(t 'rojo)
 	)
 )
+
+#|	===================================
+ 	FUNCIÓN: registrar-auditoria
+	NATURALEZA: Impura (Escribe en la salida estándar)
+ 	ESTRATEGIA: Simple
+ 	IMPACTO: No Destructiva
+ 	=================================== |#
+(defun registrar-auditoria (color-anterior color-nuevo)
+  (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%" (- (get-universal-time) 2208988800) color-anterior color-nuevo))
