@@ -42,3 +42,17 @@ IMPACTO: no destructiva
  	=================================== |#
 (defun registrar-auditoria (color-anterior color-nuevo)
   (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%" (- (get-universal-time) 2208988800) color-anterior color-nuevo))
+
+
+#|
+NOMBRE: recomendacion-ciclo
+NATURALEZA: pura
+ESTRATEGIA: alternativa cond
+IMPACTO: no destructiva
+|#
+(defun recomendacion-ciclo (duracion-ciclo)
+(cond  ((< duracion-ciclo 35) "llegue al minimo de 35")
+		((> duracion-ciclo 150) "baje hasta 150")
+		(t "esta en rango optimo")))
+
+
