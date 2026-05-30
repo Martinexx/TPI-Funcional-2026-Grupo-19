@@ -17,4 +17,19 @@ IMPACTO: No destructiva
 	(t 'accion-por-defecto))))
 
 TRANSICION
-Break 1 [3]> 
+Break 1 [3]>
+
+#|
+NOMBRE: timer
+NATURALEZA: pura
+ESTRATEGIA: alternativa cond
+IMPACTO: no destructiva
+|#
+
+(defun timer(tiempo-actual)
+	(COND ((< (MOD tiempo-actual 216) 0) 'error)
+			((<= (MOD tiempo-actual 216) 120) 'verde)
+			((<= (MOD tiempo-actual 216) 210) 'amarillo)
+			(t 'rojo)
+	)
+)
