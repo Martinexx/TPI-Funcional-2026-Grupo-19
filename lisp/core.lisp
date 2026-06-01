@@ -29,7 +29,7 @@ IMPACTO: no destructiva
 (defun timer(tiempo-actual)
 	(COND ((< (MOD tiempo-actual 216) 0) 'error)
 			((<= (MOD tiempo-actual 216) 120) 'verde)
-			((<= (MOD tiempo-actual 216) 210) 'amarillo)
+			((<= (MOD tiempo-actual 216) 126) 'amarillo)
 			(t 'rojo)
 	)
 )
