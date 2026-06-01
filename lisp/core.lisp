@@ -56,3 +56,14 @@ IMPACTO: no destructiva
 		(t "esta en rango optimo")))
 
 
+#|
+FUNCION: Piclos-por-tiempo
+NATURALEZA: Pura
+ESTRATEGIA: Division tiempoTotal/ciclo
+IMPACTO: No destructiva
+|#
+
+(defun ciclos-por-tiempo (minutos) 
+
+(float (/ (* minutos 60) (duracion-ciclo (* minutos 60)))))
+
