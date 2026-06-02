@@ -10,11 +10,17 @@ IMPACTO: No destructiva
 (defun transicion (color-actual cambiar-a)
 (list color-actual 
 	(cond 
-	((equalp cambiar-a color-actual) 'accion-por-defecto)
-	((equalp cambiar-a 'rojo) "cambiar-a-rojo"  )
-	((equalp cambiar-a 'amarillo) "cambiar-a-amarillo" )
-	((equalp cambiar-a 'verde) "cambiar-a-verde")
-	(t 'accion-por-defecto))))
+		((OR (equalp cambiar-a color-actual) 
+			  (AND (equalp color-actual 'en-verde) (equalp cambiar-a 'rojo))
+			  (AND (equalp color-actual 'en-amarillo) (equalp cambiar-a 'verde))
+			  (AND (equalp color-actual 'en-rojo) (equalp cambiar-a 'amarillo))
+		 ) 'accion-por-defecto)
+
+		((equalp cambiar-a 'rojo) "cambiar-a-rojo"  )
+		((equalp cambiar-a 'amarillo) "cambiar-a-amarillo" )
+		((equalp cambiar-a 'verde) "cambiar-a-verde")
+		(t 'accion-por-defecto)))
+	)
 
 TRANSICION
 Break 1 [3]>
