@@ -22,6 +22,7 @@ IMPACTO: No destructiva
 		(t 'accion-por-defecto)))
 	)
 
+
 TRANSICION
 Break 1 [3]>
 
@@ -102,3 +103,39 @@ IMPACTO: no destructiva
 			'(verde amarillo rojo)
 	)
 )
+
+#| ITERACION 2 
+FUNCION: Transicion
+NATURALEZA: Pura
+ESTRATEGIA: Construccion de lista + alternativas
+IMPACTO: No destructiva
+|#
+
+(defun transicion (color-actual cambiar-a)
+(list color-actual 
+	(cond 
+		((OR (equalp cambiar-a color-actual) 
+
+			(AND (equalp color-actual 'en-verde) (equalp cambiar-a 'rojo))
+			(AND (equalp color-actual 'en-amarillo) (equalp cambiar-a 'verde))
+			(AND (equalp color-actual 'en-rojo) (equalp cambiar-a 'amarillo))	
+ 
+			(AND (not (equalp color-actual 'en-rojo)) (equalp cambiar-a 'rojo-intermitente))
+			(AND (not (equalp color-actual 'en-amarillo)) (equalp cambiar-a 'amarillo-intermitente))
+			(AND (not (equalp color-actual 'en-verde)) (equalp cambiar-a 'verde-intermitente))
+		 ) 'accion-por-defecto)
+
+		((equalp cambiar-a 'rojo)  "cambiar-a-rojo")
+		((equalp cambiar-a 'amarillo)  "cambiar-a-amarillo")
+		((equalp cambiar-a 'verde) "cambiar-a-verde")
+
+
+		((equalp cambiar-a 'rojo-intermitente) "cambiar-a-rojo-intermitente")
+		((equalp cambiar-a 'amarillo-intermitente) "cambiar-a-amarillo-intermitente")
+		((equalp cambiar-a 'verde-intermitente) "cambiar-a-verde-intermitente")
+		(t 'accion-por-defecto))
+)
+)	
+
+
+
