@@ -73,3 +73,32 @@ IMPACTO: No destructiva
 
 (float (/ (* minutos 60) (duracion-ciclo (* minutos 60)))))
 
+#|
+FUNCION: veces_periodo
+NATURALEZA: pura
+ESTRATEGIA: recursividad 
+IMPACTO: no destructiva
+|#
+
+(defun veces_periodo(ini fin color)
+	(COND ((> ini fin) 0)
+			((AND (equal (timer ini) color) (not (equal (timer ini) (timer (- ini 1))))) 
+			 (+ 1 (veces_periodo (+ ini 1) fin color))
+			)
+
+			(t (veces_periodo (+ ini 1) fin color))
+	)
+)
+
+#|
+FUNCION: distribucionPorcentual
+NATURALEZA: pura
+ESTRATEGIA: orden superior (mapcar) 
+IMPACTO: no destructiva
+|#
+
+(defun distribucionPorcentual (horaUnix)
+	(mapcar (lambda (color) (list color (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo) (veces_periodo horaUnix (+ horaUnix 3600) 'rojo))))) 
+			'(verde amarillo rojo)
+	)
+)
