@@ -25,6 +25,27 @@ IMPACTO: No destructiva
 
 TRANSICION
 Break 1 [3]>
+#|
+FUNCION: Transicion
+NATURALEZA: Pura
+ESTRATEGIA: Construccion de lista + condicional
+IMPACTO: No destructiva
+|#
+
+(defun transicion (color-actual cambiar-a)
+	(list color-actual 
+		(cond 
+			((AND (equalp color-actual 'verde-intermitente) (equalp cambiar-a 'rojo)) "cambiar-a-rojo")
+			((AND (equalp color-actual 'rojo-intermitente) (equalp cambiar-a 'amarillo)) "cambiar-a-amarillo")
+			((AND (equalp color-actual 'amarillo-intermitente) (equalp cambiar-a 'verde)) "cambiar-a-verde")
+
+			((AND (equalp color-actual 'rojo) (equalp cambiar-a 'rojo-intermitente) "cambiar-a-rojo-intermitente")
+			((AND (equalp color-actual 'amarillo) (equalp cambiar-a 'amarillo-intermitente) "cambiar-a-amarillo-intermitente")
+			((AND (equalp color-actual 'verde) (equalp cambiar-a 'verde-intermitente) "cambiar-a-verde-intermitente")
+			(t 'accion-por-defecto)
+		)
+	)
+)
 
 #|
 NOMBRE: timer
