@@ -153,7 +153,7 @@ Caso de Error:
 	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
 |#
 
-#| ITERACION 2 
+; ITERACION 2 
 #|
 FUNCION: Transicion
 NATURALEZA: Pura
