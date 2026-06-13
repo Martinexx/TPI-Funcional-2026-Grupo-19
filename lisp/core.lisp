@@ -154,38 +154,6 @@ Caso de Error:
 |#
 
 #| ITERACION 2 
-FUNCION: Transicion
-NATURALEZA: Pura
-ESTRATEGIA: Construccion de lista + alternativas
-IMPACTO: No destructiva
-|#
-
-(defun transicion (color-actual cambiar-a)
-(list color-actual 
-	(cond 
-		((OR (equalp cambiar-a color-actual) 
-
-			(AND (equalp color-actual 'en-verde) (equalp cambiar-a 'rojo))
-			(AND (equalp color-actual 'en-amarillo) (equalp cambiar-a 'verde))
-			(AND (equalp color-actual 'en-rojo) (equalp cambiar-a 'amarillo))	
- 
-			(AND (not (equalp color-actual 'en-rojo)) (equalp cambiar-a 'rojo-intermitente))
-			(AND (not (equalp color-actual 'en-amarillo)) (equalp cambiar-a 'amarillo-intermitente))
-			(AND (not (equalp color-actual 'en-verde)) (equalp cambiar-a 'verde-intermitente))
-		 ) 'accion-por-defecto)
-
-		((equalp cambiar-a 'rojo)  "cambiar-a-rojo")
-		((equalp cambiar-a 'amarillo)  "cambiar-a-amarillo")
-		((equalp cambiar-a 'verde) "cambiar-a-verde")
-
-
-		((equalp cambiar-a 'rojo-intermitente) "cambiar-a-rojo-intermitente")
-		((equalp cambiar-a 'amarillo-intermitente) "cambiar-a-amarillo-intermitente")
-		((equalp cambiar-a 'verde-intermitente) "cambiar-a-verde-intermitente")
-		(t 'accion-por-defecto))
-)
-)	
-
 #|
 FUNCION: Transicion
 NATURALEZA: Pura
@@ -208,3 +176,58 @@ IMPACTO: No destructiva
 	)
 )
 
+#|
+FUNCION: proximo-color
+NATURALEZA: pura
+ESTRATEGIA: aritmetica, condicional  
+IMPACTO: no destructiva
+|#
+
+(defun proximo-color (horaUnix)
+	(+ horaUnix (- (cond 
+						((equal (timer horaUnix) 'rojo) 88)
+						((equal (timer horaUnix) 'rojo-intermitente) 91)
+						((equal (timer horaUnix) 'verde) 208)
+						((equal (timer horaUnix) 'verde-intermitente) 211)
+						((equal (timer horaUnix) 'amarillo) 214)
+						((equal (timer horaUnix) 'amarillo-intermitente) 216)
+					) 
+					(MOD horaUnix (duracion-ciclo))
+				)
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(proximo-color 1781379864) -> 1781379952 
+	(proximo-color 1781379952) -> 1781379955
+	(proximo-color 1781379955) -> 1781380072
+	(proximo-color 1781380072) -> 1781380075
+	(proximo-color 1781380075) -> 1781380078
+	(proximo-color 1781380078) -> 1781380080
+Caso de error:
+	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
+|#
+
+#|
+FUNCION: distribucionPorcentual
+NATURALEZA: pura
+ESTRATEGIA: orden superior (mapcar) 
+IMPACTO: no destructiva
+|#
+
+(defun distribucionPorcentual (horaUnix)
+	(mapcar (lambda (color) (list color (float (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'rojo) (veces_periodo horaUnix (+ horaUnix 3600) 'rojo-intermitente) (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'verde-intermitente) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo-intermitente)))))) 
+			'(rojo rojo-intermitente verde verde-intermitente amarillo amarillo-intermitente)
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(distribucionPorcentual 1781381026) -> ((ROJO 17.475729) (ROJO-INTERMITENTE 16.504854) (VERDE 16.504854) (VERDE-INTERMITENTE 16.504854) (AMARILLO 16.504854) (AMARILLO-INTERMITENTE 16.504854))
+	(distribucionPorcentual 1781373826) -> ((ROJO 17.171717) (ROJO-INTERMITENTE 17.171717) (VERDE 17.171717) (VERDE-INTERMITENTE 16.161615) (AMARILLO 16.161615) (AMARILLO-INTERMITENTE 16.161615))
+Caso de Error:
+	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
+|#			
