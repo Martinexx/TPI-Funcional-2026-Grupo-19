@@ -75,21 +75,61 @@ IMPACTO: No destructiva
 (float (/ (* minutos 60) (duracion-ciclo (* minutos 60)))))
 
 #|
-FUNCION: veces_periodo
+FUNCION: proximo-color
 NATURALEZA: pura
-ESTRATEGIA: recursividad 
+ESTRATEGIA: aritmetica, condicional  
 IMPACTO: no destructiva
 |#
 
-(defun veces_periodo(ini fin color)
-	(COND ((> ini fin) 0)
-			((AND (equal (timer ini) color) (not (equal (timer ini) (timer (- ini 1))))) 
-			 (+ 1 (veces_periodo (+ ini 1) fin color))
-			)
-
-			(t (veces_periodo (+ ini 1) fin color))
+(defun proximo-color (horaUnix)
+	(+ horaUnix (- (cond 
+						((equal (timer horaUnix) 'rojo) 91)
+						((equal (timer horaUnix) 'verde) 211)
+						((equal (timer horaUnix) 'amarillo) 216)
+					) 
+					(MOD horaUnix (duracion-ciclo))
+				)
 	)
 )
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(proximo-color 1781379859) -> 1781379864
+	(proximo-color 1781379864) -> 1781379955
+	(proximo-color 1781379955) -> 1781380075
+Caso de error:
+	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
+|#
+
+#|
+FUNCION: veces_periodo
+NATURALEZA: pura
+ESTRATEGIA: recursividad multiple 
+IMPACTO: no destructiva
+|#
+
+(defun veces_periodo (ini fin color)
+	(COND 
+		((> ini fin) 0)
+		((equal (timer ini) color) (+ 1 (veces_periodo (proximo-color ini) fin color)))
+		(t (veces_periodo (proximo-color ini) fin color))
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(veces_periodo 1781299243 1781302843 'rojo) -> 17 
+	(veces_periodo 1781299243 1781302843 'verde) -> 18
+	(veces_periodo 1781299243 1781302843 'amarillo) -> 17
+	(veces_periodo 0 224639 'rojo) -> 1040
+Comportamiento Alternativo:
+	(veces_periodo 1781299243 1781302843 'no-color) -> 0
+Caso de error:
+	(veces_periodo 0 224640 'rojo) -> Program stack overflow. RESET
+	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number 
+|#
 
 #|
 FUNCION: distribucionPorcentual
@@ -99,10 +139,19 @@ IMPACTO: no destructiva
 |#
 
 (defun distribucionPorcentual (horaUnix)
-	(mapcar (lambda (color) (list color (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo) (veces_periodo horaUnix (+ horaUnix 3600) 'rojo))))) 
-			'(verde amarillo rojo)
+	(mapcar (lambda (color) (list color (float (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'rojo) (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo)))))) 
+			'(rojo verde amarillo)
 	)
 )
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(distribucionPorcentual 1781381026) -> ((ROJO 34.615383) (VERDE 32.692307) (AMARILLO 32.692307))
+	(distribucionPorcentual 1781373826) -> ((ROJO 34.0) (VERDE 34.0) (AMARILLO 32.0))
+Caso de Error:
+	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
+|#
 
 #| ITERACION 2 
 FUNCION: Transicion
