@@ -231,3 +231,29 @@ Comportamiento Normal:
 Caso de Error:
 	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
 |#			
+
+#|
+FUNCION: informe
+NATURALEZA: impura
+ESTRATEGIA: reutiliza otras funciones para cumplir con lo pedido
+IMPACTO: No destructivo
+|#
+(defun informe (color-anterior color-nuevo)
+(with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
+(format stream "Informe de Ejecución del Sistema Semafórico~%")
+(format stream "=========================================~%")
+
+(defun registrar-auditoria (color-anterior color-nuevo)
+  (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
+(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
+
+
+(format stream "~% --- Fin del Informe ---")))
+
+#|
+casos de pruebas:
+caso normal: 'en-rojo 'verde - Tiempo [formato pedido]: la luz ha cambiado de 'en-rojo a "cambiar-a-verde"
+caso alternativo: 5 'amarillo - Tiempo [formato pedido]: la luz ha cambiado de 5  a 'accion-por-defecto
+
+|#
