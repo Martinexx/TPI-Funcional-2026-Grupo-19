@@ -188,11 +188,11 @@ IMPACTO: no destructiva
 
 (defun proximo-color (horaUnix)
 	(+ horaUnix (- (cond 
-						((equal (timer horaUnix) 'rojo) 88)
+						((equal (timer horaUnix) 'rojo) 91)
 						((equal (timer horaUnix) 'rojo-intermitente) 91)
-						((equal (timer horaUnix) 'verde) 208)
+						((equal (timer horaUnix) 'verde) 211)
 						((equal (timer horaUnix) 'verde-intermitente) 211)
-						((equal (timer horaUnix) 'amarillo) 214)
+						((equal (timer horaUnix) 'amarillo) 216)
 						((equal (timer horaUnix) 'amarillo-intermitente) 216)
 					) 
 					(MOD horaUnix (duracion-ciclo))
@@ -203,37 +203,78 @@ IMPACTO: no destructiva
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(proximo-color 1781379864) -> 1781379952 
+	(proximo-color 1781379864) -> 1781379955 
 	(proximo-color 1781379952) -> 1781379955
-	(proximo-color 1781379955) -> 1781380072
+	(proximo-color 1781379955) -> 1781380075
 	(proximo-color 1781380072) -> 1781380075
-	(proximo-color 1781380075) -> 1781380078
+	(proximo-color 1781380075) -> 1781380080
 	(proximo-color 1781380078) -> 1781380080
 Caso de error:
 	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
 |#
 
 #|
-FUNCION: distribucionPorcentual
+FUNCION: complemento
 NATURALEZA: pura
-ESTRATEGIA: orden superior (mapcar) 
+ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
 
-(defun distribucionPorcentual (horaUnix)
-	(mapcar (lambda (color) (list color (float (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'rojo) (veces_periodo horaUnix (+ horaUnix 3600) 'rojo-intermitente) (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'verde-intermitente) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo-intermitente)))))) 
-			'(rojo rojo-intermitente verde verde-intermitente amarillo amarillo-intermitente)
+(defun complemento (color)
+	(COND
+		((equal color 'rojo) 'rojo-intermitente)
+		((equal color 'verde) 'verde-intermitente)
+		((equal color 'amarillo) 'amarillo-intermitente)
+
+		((equal color 'rojo-intermitente) 'rojo)
+		((equal color 'verde-intermitente) 'verde)
+		((equal color 'amarillo-intermitente) 'amarillo)
 	)
 )
 
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(distribucionPorcentual 1781381026) -> ((ROJO 17.475729) (ROJO-INTERMITENTE 16.504854) (VERDE 16.504854) (VERDE-INTERMITENTE 16.504854) (AMARILLO 16.504854) (AMARILLO-INTERMITENTE 16.504854))
-	(distribucionPorcentual 1781373826) -> ((ROJO 17.171717) (ROJO-INTERMITENTE 17.171717) (VERDE 17.171717) (VERDE-INTERMITENTE 16.161615) (AMARILLO 16.161615) (AMARILLO-INTERMITENTE 16.161615))
-Caso de Error:
-	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
-|#			
+	(complemento 'rojo) -> ROJO-INTERMITENTE
+	(complemento 'verde) -> VERDE-INTERMITENTE
+	(complemento 'amarillo) -> AMARILLO-INTERMITENTE
+	(complemento 'rojo-intermitente) -> ROJO
+	(complemento 'amarillo-intermitente) -> AMARILLO
+	(complemento 'verde-intermitente) -> VERDE
+Comportamiento Alternativo:
+	(complemento 'texto) -> NIL
+|#
+
+#|
+FUNCION: veces_periodo
+NATURALEZA: pura
+ESTRATEGIA: recursividad multiple 
+IMPACTO: no destructiva
+|#
+
+(defun veces_periodo (ini fin color)
+	(COND 
+		((> ini fin) 0)
+		(
+			(OR (equal (timer ini) color) (equal (timer ini) (complemento color)))
+			(+ 1 (veces_periodo (proximo-color ini) fin color))
+		)
+		(t (veces_periodo (proximo-color ini) fin color))
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(veces_periodo 1781299243 1781302843 'rojo) -> 17
+	(veces_periodo 1781299243 1781302843 'verde) -> 18
+	(veces_periodo 1781299243 1781302843 'amarillo) -> 17
+Comportamiento Alternativo:
+	(veces_periodo 1781299243 1781302843 'no-color) -> 0
+Caso de error:
+	(veces_periodo 0 224640 'rojo) -> Program stack overflow. RESET
+	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
+|#
 
 #|	===================================
  	FUNCIÓN: auditoriaStream
