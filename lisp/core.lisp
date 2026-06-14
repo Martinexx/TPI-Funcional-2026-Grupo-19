@@ -257,3 +257,29 @@ caso normal: 'en-rojo 'verde - Tiempo [formato pedido]: la luz ha cambiado de 'e
 caso alternativo: 5 'amarillo - Tiempo [formato pedido]: la luz ha cambiado de 5  a 'accion-por-defecto
 
 |#
+
+
+NOMBRE: timer
+NATURALEZA: pura
+ESTRATEGIA: condicional
+IMPACTO: no destructiva
+|#
+
+(defun timer(tiempo-actual)
+	(COND 
+		((<= (MOD tiempo-actual (duracion-ciclo)) 90) 'rojo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 210) 'verde)
+		(t 'amarillo)
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(timer 1781241929) -> ROJO
+	(timer 1781242600) -> VERDE
+	(timer 1781242700) -> AMARILLO
+
+Caso de Error:
+	(timer 'texto) -> MOD: TEXTO is not a real number 
+|#
