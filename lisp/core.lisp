@@ -282,3 +282,19 @@ Comportamiento Normal:
 Caso de Error:
 	(timer 'texto) -> MOD: TEXTO is not a real number 
 |#
+
+#|
+FUNCION: duracion-ciclo
+NATURALEZA: pura
+ESTRATEGIA: suma
+IMPACTO: no destructiva
+|#
+
+(defun duracion-ciclo()
+	(+ 90 120 6)
+)						
+
+#|
+CASO DE PRUEBA
+(duracion-ciclo) -> 216
+|#
