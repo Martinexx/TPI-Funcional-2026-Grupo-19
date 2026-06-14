@@ -48,7 +48,10 @@ IMPACTO: no destructiva
  	IMPACTO: No Destructiva
  	=================================== |#
 (defun registrar-auditoria (color-anterior color-nuevo)
-  (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%" (- (get-universal-time) 2208988800) color-anterior color-nuevo))
+  (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
+(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+(CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
+
 
 
 #|
@@ -243,11 +246,7 @@ IMPACTO: No destructivo
 (format stream "Informe de Ejecución del Sistema Semafórico~%")
 (format stream "=========================================~%")
 
-(defun registrar-auditoria (color-anterior color-nuevo)
-  (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
-(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
-(CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
-
+(registrar-auditoria (color-anterior color-nuevo))
 
 (format stream "~% --- Fin del Informe ---")))
 
