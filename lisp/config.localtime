@@ -1,0 +1,4 @@
+Tools -> sublime repl -> commom lisp -> sbcl
+  (load "ruta del instalador")
+(quicklisp-quickstart:install)
+(ql:quickload :Local-time)
