@@ -308,16 +308,6 @@ Caso de error:
 	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
 |#
 
-#|	===================================
- 	FUNCIÓN: auditoriaStream
-	NATURALEZA: Impura (Escribe en la salida estándar)
- 	ESTRATEGIA: Simple
- 	IMPACTO: No Destructiva
- 	=================================== |#
-(defun auditoriaStream (color-anterior color-nuevo)
-  (format stream "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
-(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
-(CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
 
 			
 #|
@@ -335,7 +325,7 @@ IMPACTO: No destructivo
 (format stream "Informe de Ejecución del Sistema Semafórico~%")
 (format stream "=========================================~%")
 
-(format stream(auditoriaStream color-anterior color-nuevo))
+(format stream(registrar-auditoria color-anterior color-nuevo))
 
 
 (format stream "~% --- Fin del Informe ---")))
