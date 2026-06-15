@@ -75,7 +75,7 @@ IMPACTO: No destructiva
 
 (defun ciclos-por-tiempo (minutos) 
 
-(float (/ (* minutos 60) (duracion-ciclo (* minutos 60)))))
+(truncate (/ (* minutos 60) (duracion-ciclo))))
 
 #|
 FUNCION: proximo-color
