@@ -85,8 +85,8 @@ Impacto: no destrutiva
 */
 def timer (segundos:Int): String = {
 segundos match {
-	case segundos if ((segundos % 216) <= 90) => "rojo"
-	case segundos if ((segundos % 216) <= 210) => "verde"
+	case segundos if ((segundos % 216) <= 89) => "rojo"
+	case segundos if ((segundos % 216) <= 209) => "verde"
 	case _ => "amarillo"
 }
 }
@@ -105,11 +105,11 @@ Impacto: no destrutiva
 */
 def timer_inter (segundos:Int): String = {
 segundos match {
-	case segundos if ((segundos % 216) <= 87) => "rojo"
-	case segundos if ((segundos % 216) <= 90) => "rojo-intermitente"
-	case segundos if ((segundos % 216) <= 207) => "verde"
-	case segundos if ((segundos % 216) <= 210) => "verde-intermitente"
-	case segundos if ((segundos % 216) <= 213) => "amarillo"
+	case segundos if ((segundos % 216) <= 86) => "rojo"
+	case segundos if ((segundos % 216) <= 89) => "rojo-intermitente"
+	case segundos if ((segundos % 216) <= 206) => "verde"
+	case segundos if ((segundos % 216) <= 209) => "verde-intermitente"
+	case segundos if ((segundos % 216) <= 212) => "amarillo"
 	case _ => "amarillo-intermitente"
 }
 }
