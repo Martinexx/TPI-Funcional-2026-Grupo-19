@@ -119,3 +119,34 @@ caso normal: 304 - "rojo-intermitente"
 caso error: cualquier parametro que no sea entero
 
 */
+
+/*
+Objeto singlenton Semaforo, contiene transicion y timer como metodos propios
+*/
+object Semaforo {
+
+		def transicionIntermitencia (coloractual: String, cambiara: String): List[String] = {
+		if (/*no se puede pasar de un color al siguiente si el actual no es intermitente*/
+		((coloractual == "en-rojo-intermitente") && (cambiara == "verde")) ||
+		((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo")) ||
+		((coloractual == "en-verde-intermitente") && (cambiara == "amarillo")) ||
+		((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) ||
+		((coloractual == "en-amarillo") && (cambiara == "amarillo-intermitente")) ||
+		((coloractual == "en-verde") && (cambiara == "verde-intermitente"))) 
+
+		{List(coloractual, cambiara)} 
+
+		else 
+
+		{List (coloractual, "accion-por-defecto")}	
+		}
+
+		def timer (segundos:Int): String = {
+segundos match {
+	case segundos if ((segundos % 216) <= 87) => "rojo"
+	case segundos if ((segundos % 216) <= 90) => "rojo-intermitente"
+	case segundos if ((segundos % 216) <= 207) => "verde"
+	case segundos if ((segundos % 216) <= 210) => "verde-intermitente"
+	case segundos if ((segundos % 216) <= 213) => "amarillo"
+	case _ => "amarillo-intermitente"}}
+}
