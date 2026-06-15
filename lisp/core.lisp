@@ -85,22 +85,22 @@ IMPACTO: no destructiva
 |#
 
 (defun proximo-color (horaUnix)
-	(+ horaUnix (- (cond 
-						((equal (timer horaUnix) 'rojo) 91)
-						((equal (timer horaUnix) 'verde) 211)
-						((equal (timer horaUnix) 'amarillo) 216)
-					) 
-					(MOD horaUnix (duracion-ciclo))
-				)
+	(+ (- horaUnix (MOD horaUnix (duracion-ciclo))) (cond 
+														((equal (timer horaUnix) 'rojo) 90)
+														((equal (timer horaUnix) 'verde) 210)
+														((equal (timer horaUnix) 'amarillo) 216)
+													) 
 	)
+				
 )
+
 
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
 	(proximo-color 1781379859) -> 1781379864
-	(proximo-color 1781379864) -> 1781379955
-	(proximo-color 1781379955) -> 1781380075
+	(proximo-color 1781379864) -> 1781379954
+	(proximo-color 1781379955) -> 1781380074
 Caso de error:
 	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
 |#
