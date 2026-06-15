@@ -180,6 +180,38 @@ IMPACTO: No destructiva
 )
 
 #|
+NOMBRE: timer
+NATURALEZA: pura
+ESTRATEGIA: condicional
+IMPACTO: no destructiva
+|#
+
+(defun timer(tiempo-actual)
+	(COND 
+		((<= (MOD tiempo-actual (duracion-ciclo)) 86) 'rojo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 206) 'verde)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 212) 'amarillo)
+		(t 'amarillo-intermitente)
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(timer 1781245161) -> ROJO
+	(timer 1781245168) -> ROJO-INTERMITENTE 
+	(timer 1781245268) -> VERDE 
+	(timer 1781245504) -> VERDE-INTERMITENTE
+	(timer 1781245507) -> AMARILLO
+	(timer 1781245510) -> AMARILLO-INTERMITENTE
+
+Caso de Error:
+	(timer '(lista)) ->	MOD: (LISTA) is not a real number	
+|#			
+
+#|
 FUNCION: proximo-color
 NATURALEZA: pura
 ESTRATEGIA: aritmetica, condicional  
