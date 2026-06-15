@@ -295,11 +295,16 @@ ESTRATEGIA: reutiliza otras funciones para cumplir con lo pedido
 IMPACTO: No destructivo
 |#
 (defun informe (color-anterior color-nuevo)
-(with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output)
+(with-open-file (stream
+                 "informe-ejecucion-semaforo.txt"
+                 :direction :output
+                 :if-exists :append)
+  
 (format stream "Informe de Ejecución del Sistema Semafórico~%")
 (format stream "=========================================~%")
 
-(auditoriaStream (color-anterior color-nuevo))
+(format stream(auditoriaStream color-anterior color-nuevo))
+
 
 (format stream "~% --- Fin del Informe ---")))
 
