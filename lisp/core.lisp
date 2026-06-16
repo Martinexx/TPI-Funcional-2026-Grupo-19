@@ -2,26 +2,34 @@
 *** - LOAD: A file with name $file does not exist
 Break 1 [3]> 
 #|
-FUNCION: Transicion
+FUNCION: transicion
 NATURALEZA: Pura
-ESTRATEGIA: Construccion de lista + alternativas
-IMPACTO: No destructiva
+ESTRATEGIA: Construcion de lista + condicional
+IMPACTO: no destructiva
 |#
+
 (defun transicion (color-actual cambiar-a)
-(list color-actual 
-	(cond 
-		((OR (equalp cambiar-a color-actual) 
-			  (AND (equalp color-actual 'en-verde) (equalp cambiar-a 'rojo))
-			  (AND (equalp color-actual 'en-amarillo) (equalp cambiar-a 'verde))
-			  (AND (equalp color-actual 'en-rojo) (equalp cambiar-a 'amarillo))
-		 ) 'accion-por-defecto)
-
-		((equalp cambiar-a 'rojo) "cambiar-a-rojo"  )
-		((equalp cambiar-a 'amarillo) "cambiar-a-amarillo" )
-		((equalp cambiar-a 'verde) "cambiar-a-verde")
-		(t 'accion-por-defecto)))
+	(list color-actual 
+		(cond 
+			((AND (equalp color-actual 'en-amarillo) (equalp cambiar-a 'rojo)) "cambiar-a-rojo")
+			((AND (equalp color-actual 'en-rojo) (equalp cambiar-a 'verde)) "cambiar-a-verde")
+			((AND (equalp color-actual 'en-verde) (equalp cambiar-a 'amarillo)) "cambiar-a-amarillo")
+			(t 'accion-por-defecto)
+		)
 	)
+)
 
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(transicion 'en-amarillo 'rojo) -> (EN-AMARILLO "cambiar-a-rojo")
+	(transicion 'en-rojo 'verde) -> (EN-ROJO "cambiar-a-verde")
+	(transicion 'en-verde 'amarillo) -> (EN-VERDE "cambiar-a-amarillo")
+
+Comportamiento Alternativo:
+	(transicion 'en-rojo 'rojo) -> (EN-ROJO ACCION-POR-DEFECTO)
+	(transicion 'texto-sin 'sentido) -> (TEXTO-SIN ACCION-POR-DEFECTO)  //este no se si cuenta como error
+|#
 
 TRANSICION
 Break 1 [3]>
