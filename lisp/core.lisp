@@ -37,18 +37,28 @@ Break 1 [3]>
 #|
 NOMBRE: timer
 NATURALEZA: pura
-ESTRATEGIA: alternativa cond
+ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
 
 (defun timer(tiempo-actual)
-	(COND ((< (MOD tiempo-actual 216) 0) 'error)
-			((<= (MOD tiempo-actual 216) 120) 'verde)
-			((<= (MOD tiempo-actual 216) 126) 'amarillo)
-			(t 'rojo)
+	(COND 
+		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde)
+		(t 'amarillo)
 	)
 )
 
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(timer 1781241929) -> ROJO
+	(timer 1781242600) -> VERDE
+	(timer 1781242700) -> AMARILLO
+
+Caso de Error:
+	(timer 'texto) -> MOD: TEXTO is not a real number 
+|#
 #|	===================================
  	FUNCIÓN: registrar-auditoria
 	NATURALEZA: Impura (Escribe en la salida estándar)
