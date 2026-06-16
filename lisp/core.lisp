@@ -85,15 +85,29 @@ IMPACTO: no destructiva
 
 
 #|
-FUNCION: Piclos-por-tiempo
+FUNCION: ciclos-por-tiempo
 NATURALEZA: Pura
 ESTRATEGIA: Division tiempoTotal/ciclo
 IMPACTO: No destructiva
 |#
 
 (defun ciclos-por-tiempo (minutos) 
+	(values (TRUNCATE (/ (* minutos 60) (duracion-ciclo))))
+)
 
-(truncate (/ (* minutos 60) (duracion-ciclo))))
+;Si se le pasa solo un número a truncate este devuelve la parte entera y la parte decimal del número por separado, 
+;devuelve 2 valores, pero al usarse como entrada de otra funcion, esta tomara solo el primer valor devuelto,
+;values toma ese unico valor, la parte entera del argumento de truncate y lo devuelve.
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal: 
+	(ciclos-por-tiempo 60) -> 16
+	(ciclos-por-tiempo 123) -> 34
+
+Caso de error: 
+	(ciclos-por-tiempo 'no-num) -> *: NO-NUM is not a number
+|#
 
 #|
 FUNCION: proximo-color
