@@ -59,6 +59,7 @@ Comportamiento Normal:
 Caso de Error:
 	(timer 'texto) -> MOD: TEXTO is not a real number 
 |#
+
 #|	===================================
  	FUNCIÓN: registrar-auditoria
 	NATURALEZA: Impura (Escribe en la salida estándar)
@@ -78,11 +79,24 @@ NATURALEZA: pura
 ESTRATEGIA: alternativa cond
 IMPACTO: no destructiva
 |#
+
 (defun recomendacion-ciclo (duracion-ciclo)
 (cond  ((< duracion-ciclo 35) "llegue al minimo de 35")
 		((> duracion-ciclo 150) "baje hasta 150")
-		(t "esta en rango optimo")))
+		(t "esta en rango optimo")
+	)
+)
 
+#|
+CASOS DE PRUEBA
+Comportamiento Normal: 
+	(recomendacion-ciclo 20) -> "llegue al minimo de 35"
+	(recomendacion-ciclo 100) -> "esta en rango optimo"
+	(recomendacion-ciclo 200) -> "baje hasta 150"
+	
+Caso de error:
+	(recomendacion-ciclo #C(0 1)) -> <: #C(0 1) is not a real number
+|#
 
 #|
 FUNCION: ciclos-por-tiempo
