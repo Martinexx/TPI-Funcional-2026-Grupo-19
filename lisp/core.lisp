@@ -31,8 +31,6 @@ Comportamiento Alternativo:
 	(transicion 'texto-sin 'sentido) -> (TEXTO-SIN ACCION-POR-DEFECTO)  //este no se si cuenta como error
 |#
 
-TRANSICION
-Break 1 [3]>
 
 #|
 NOMBRE: timer
@@ -71,7 +69,15 @@ Caso de Error:
 (local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 (CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
 
+#|
+Funcion: duracion-ciclo
+Naturaleza: pura
+Estrategia: suma los valores del ciclo
+Impacto: no destructiva
+|#
 
+(defun duracion-ciclo ()
+	(+ 90 120 6))
 
 #|
 NOMBRE: recomendacion-ciclo
