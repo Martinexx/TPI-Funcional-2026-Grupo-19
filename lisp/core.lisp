@@ -38,20 +38,26 @@ IMPACTO: no destructiva
 (defun timer (tiempo-actual)
 	(COND 
 		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
-		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde)
-		(t 'amarillo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 92) 'rojo-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 212) 'verde)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 215) 'verde-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 221) 'amarillo)
+		(t 'amarillo-intermitente)
 	)
 )
 
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(timer 1781241929) -> ROJO
-	(timer 1781242600) -> VERDE
-	(timer 1781242700) -> AMARILLO
+	(timer 1781245161) -> ROJO
+	(timer 1781245215) -> ROJO-INTERMITENTE 
+	(timer 1781245268) -> VERDE 
+	(timer 1781245338) -> VERDE-INTERMITENTE
+	(timer 17812455520) -> AMARILLO
+	(timer 17812455522) -> AMARILLO-INTERMITENTE
 
 Caso de Error:
-	(timer 'texto) -> MOD: TEXTO is not a real number 
+	(timer '(lista)) ->	MOD: (LISTA) is not a real number	
 |#
 
 #|	===================================
@@ -60,6 +66,7 @@ Caso de Error:
  	ESTRATEGIA: Simple
  	IMPACTO: No Destructiva
  	=================================== |#
+
 (defun registrar-auditoria (color-anterior color-nuevo)
   (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
 (local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
