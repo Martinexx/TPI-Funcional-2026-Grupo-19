@@ -42,6 +42,7 @@ Caso de Error:
         					found   : Int(8)
         					required: String
 */
+
 /*
 Funcion: timer
 Naturaleza: pura
@@ -50,22 +51,31 @@ Impacto: no destrutiva
 */
 def timer (segundos:Int): String = {
 	segundos match {
-		case segundos if ((segundos % 216) <= 89) => "rojo"
-		case segundos if ((segundos % 216) <= 209) => "verde"
-		case _ => "amarillo"
+		case segundos if ((segundos % 225) <= 89) => "rojo"
+		case segundos if ((segundos % 225) <= 92) => "rojo-intermitente"
+		case segundos if ((segundos % 225) <= 212) => "verde"
+		case segundos if ((segundos % 225) <= 215) => "verde-intermitente"
+		case segundos if ((segundos % 225) <= 221) => "amarillo"
+		case _ => "amarillo-intermitente"
 	}
 }
+
+def timer (segundos:Int): String = {segundos match {case segundos if ((segundos % 225) <= 89) => "rojo"; case segundos if ((segundos % 225) <= 92) => "rojo-intermitente"; case segundos if ((segundos % 225) <= 212) => "verde"; case segundos if ((segundos % 225) <= 215) => "verde-intermitente"; case segundos if ((segundos % 225) <= 221) => "amarillo"; case _ => "amarillo-intermitente"}}
 
 /*
 CASOS DE PRUEBA
 Comportamiento Normal:
-	print(timer(1781241929)) -> rojo
-	print(timer(1781242600)) -> verde
-	print(timer(1781242700)) -> amarillo
+	print(timer(1781245161)) -> rojo
+	print(timer(1781245215)) -> rojo-intermitente 
+	print(timer(1781245268)) -> verde 
+	print(timer(1781245338)) -> verde-intermitente
+	print(timer(1781245567)) -> amarillo
+	print(timer(1781245573)) -> amarillo-intermitente
+
 Caso de Error:
-	print(timer("no-num")) -> error: type mismatch;
-        					  found   : String("no-num")
-        					  required: Int
+	print(timer("a")) ->	error: type mismatch;
+        					found   : String("a")
+        					required: Int
 */
 
 /*
