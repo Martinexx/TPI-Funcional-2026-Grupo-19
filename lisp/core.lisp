@@ -72,6 +72,42 @@ Caso de Error:
 (local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
 (CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
 
+
+#|
+Casos de pruebas:
+Caso normal: (registrar-auditoria 'en-rojo 'verde) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a cambiar-a-verde"
+Caso alternativo: (registrar-auditoria 'en-rojo 'rojo) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a 'accion-por-defecto"
+|#
+
+
+#|
+FUNCION: informe
+NATURALEZA: impura
+ESTRATEGIA: reutiliza otras funciones para cumplir con lo pedido
+IMPACTO: No destructivo
+|#
+
+(defun informe (color-anterior color-nuevo)
+(with-open-file (stream
+                 "informe-ejecucion-semaforo.txt"
+                 :direction :output
+                 :if-exists :append)
+  
+(format stream "Informe de Ejecución del Sistema Semafórico~%")
+(format stream "=========================================~%")
+
+(format stream (registrar-auditoria color-anterior color-nuevo))
+
+
+(format stream "~% --- Fin del Informe ---")))
+
+#|
+casos de pruebas:
+caso normal: (informe 'en-rojo 'verde - Tiempo [formato pedido]: la luz ha cambiado de 'en-rojo a "cambiar-a-verde"
+caso alternativo: 5 'amarillo - Tiempo [formato pedido]: la luz ha cambiado de 5  a 'accion-por-defecto
+#|
+
+
 #|
 Funcion: duracion-ciclo
 Naturaleza: pura
@@ -80,7 +116,7 @@ Impacto: no destructiva
 |#
 
 (defun duracion-ciclo ()
-	(+ 90 120 6)
+	(+ 90 3 120 3 6 3)
 )
 
 #|
