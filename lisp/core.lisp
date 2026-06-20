@@ -74,7 +74,7 @@ Impacto: no destructiva
 |#
 
 (defun duracion-ciclo ()
-	(+ 90 120 6))
+	(+ 93 123 9))
 
 #|
 NOMBRE: recomendacion-ciclo
@@ -248,11 +248,11 @@ IMPACTO: no destructiva
 
 (defun timer (tiempo-actual)
 	(COND 
-		((<= (MOD tiempo-actual (duracion-ciclo)) 86) 'rojo)
-		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo-intermitente)
-		((<= (MOD tiempo-actual (duracion-ciclo)) 206) 'verde)
-		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde-intermitente)
-		((<= (MOD tiempo-actual (duracion-ciclo)) 212) 'amarillo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 92) 'rojo-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 212) 'verde-intermitente)
+		((<= (MOD tiempo-actual (duracion-ciclo)) 215) 'amarillo)
 		(t 'amarillo-intermitente)
 	)
 )
