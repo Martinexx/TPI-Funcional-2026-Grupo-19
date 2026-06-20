@@ -108,13 +108,13 @@ IMPACTO: No destructivo
 casos de pruebas:
 caso normal: (informe 'en-rojo 'verde - Tiempo [formato pedido]: la luz ha cambiado de 'en-rojo a "cambiar-a-verde"
 caso alternativo: 5 'amarillo - Tiempo [formato pedido]: la luz ha cambiado de 5  a 'accion-por-defecto
-#|
+|#
 
 
 #|
 Funcion: duracion-ciclo
 Naturaleza: pura
-Estrategia: suma los valores del ciclo
+Estrategia: suma la duracion de cada color
 Impacto: no destructiva
 |#
 
@@ -124,7 +124,7 @@ Impacto: no destructiva
 
 #|
 CASO DE PRUEBA
-	(duracion-ciclo) -> 216
+	(duracion-ciclo) -> 225
 |#
 
 #|
@@ -172,7 +172,7 @@ IMPACTO: No destructiva
 CASOS DE PRUEBA
 Comportamiento Normal: 
 	(ciclos-por-tiempo 60) -> 16
-	(ciclos-por-tiempo 123) -> 34
+	(ciclos-por-tiempo 123) -> 32
 
 Caso de error: 
 	(ciclos-por-tiempo 'no-num) -> *: NO-NUM is not a number
@@ -187,23 +187,59 @@ IMPACTO: no destructiva
 
 (defun proximo-color (horaUnix)
 	(+ (- horaUnix (MOD horaUnix (duracion-ciclo))) (cond 
-														((equal (timer horaUnix) 'rojo) 90)
-														((equal (timer horaUnix) 'verde) 210)
-														((equal (timer horaUnix) 'amarillo) 216)
+														((equal (timer horaUnix) 'rojo) 93)
+														((equal (timer horaUnix) 'rojo-intermitente) 93)
+														((equal (timer horaUnix) 'verde) 216)
+														((equal (timer horaUnix) 'verde-intermitente) 216)
+														((equal (timer horaUnix) 'amarillo) 225)
+														((equal (timer horaUnix) 'amarillo-intermitente) 225)
 													) 
 	)
-				
 )
-
 
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(proximo-color 1781379859) -> 1781379864
-	(proximo-color 1781379864) -> 1781379954
-	(proximo-color 1781379955) -> 1781380074
+	(proximo-color 1781245161) -> 1781245218 
+	(proximo-color 1781245215) -> 1781245218
+	(proximo-color 1781245268) -> 1781245341
+	(proximo-color 1781245338) -> 1781245341
+	(proximo-color 17812455520) -> 17812455525
+	(proximo-color 17812455522) -> 17812455525
 Caso de error:
 	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
+|#
+
+#|
+FUNCION: color-complementario
+NATURALEZA: pura
+ESTRATEGIA: condicional
+IMPACTO: no destructiva
+|#
+
+(defun color-complementario (color)
+	(COND
+		((equal color 'rojo) 'rojo-intermitente)
+		((equal color 'verde) 'verde-intermitente)
+		((equal color 'amarillo) 'amarillo-intermitente)
+
+		((equal color 'rojo-intermitente) 'rojo)
+		((equal color 'verde-intermitente) 'verde)
+		((equal color 'amarillo-intermitente) 'amarillo)
+	)
+)
+
+#|
+CASOS DE PRUEBA
+Comportamiento Normal:
+	(color-complementario 'rojo) -> ROJO-INTERMITENTE
+	(color-complementario 'verde) -> VERDE-INTERMITENTE
+	(color-complementario 'amarillo) -> AMARILLO-INTERMITENTE
+	(color-complementario 'rojo-intermitente) -> ROJO
+	(color-complementario 'amarillo-intermitente) -> AMARILLO
+	(color-complementario 'verde-intermitente) -> VERDE
+Comportamiento Alternativo:
+	(color-complementario 'texto) -> NIL
 |#
 
 #|
@@ -216,7 +252,10 @@ IMPACTO: no destructiva
 (defun veces_periodo (ini fin color)
 	(COND 
 		((> ini fin) 0)
-		((equal (timer ini) color) (+ 1 (veces_periodo (proximo-color ini) fin color)))
+		(
+			(OR (equal (timer ini) color) (equal (timer ini) (color-complementario color)))
+			(+ 1 (veces_periodo (proximo-color ini) fin color))
+		)
 		(t (veces_periodo (proximo-color ini) fin color))
 	)
 )
@@ -224,15 +263,14 @@ IMPACTO: no destructiva
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(veces_periodo 1781299243 1781302843 'rojo) -> 17 
-	(veces_periodo 1781299243 1781302843 'verde) -> 18
-	(veces_periodo 1781299243 1781302843 'amarillo) -> 17
-	(veces_periodo 0 224639 'rojo) -> 1040
+	(veces_periodo 1781299243 1781302843 'rojo) -> 16
+	(veces_periodo 1781299243 1781302843 'verde) -> 17
+	(veces_periodo 1781299243 1781302843 'amarillo) -> 16
 Comportamiento Alternativo:
 	(veces_periodo 1781299243 1781302843 'no-color) -> 0
 Caso de error:
-	(veces_periodo 0 224640 'rojo) -> Program stack overflow. RESET
-	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number 
+	(veces_periodo 0 2300000 'rojo) -> Program stack overflow. RESET
+	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
 |#
 
 #|
@@ -251,8 +289,8 @@ IMPACTO: no destructiva
 #|
 CASOS DE PRUEBA
 Comportamiento Normal:
-	(distribucionPorcentual 1781381026) -> ((ROJO 34.615383) (VERDE 32.692307) (AMARILLO 32.692307))
-	(distribucionPorcentual 1781373826) -> ((ROJO 34.0) (VERDE 34.0) (AMARILLO 32.0))
+	(distribucionPorcentual 1781381026) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
+	(distribucionPorcentual 1781373826) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
 Caso de Error:
 	(distribucionPorcentual 'texto) -> +: TEXTO is not a number
 |#
