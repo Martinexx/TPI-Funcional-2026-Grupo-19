@@ -1,6 +1,3 @@
-
-*** - LOAD: A file with name $file does not exist
-Break 1 [3]> 
 #|
 FUNCION: transicion
 NATURALEZA: Pura
@@ -39,7 +36,7 @@ ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
 
-(defun timer(tiempo-actual)
+(defun timer (tiempo-actual)
 	(COND 
 		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
 		((<= (MOD tiempo-actual (duracion-ciclo)) 209) 'verde)
@@ -249,7 +246,7 @@ ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
 
-(defun timer(tiempo-actual)
+(defun timer (tiempo-actual)
 	(COND 
 		((<= (MOD tiempo-actual (duracion-ciclo)) 86) 'rojo)
 		((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo-intermitente)
