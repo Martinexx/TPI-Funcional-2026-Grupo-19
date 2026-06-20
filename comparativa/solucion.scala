@@ -5,11 +5,14 @@ ESTRATEGIA: condicional, construccion de lista
 IMPACTO: no destructiva
 */
 
-def transicion (coloractual: String, cambiara: String): List[String] = {
+def transicion(coloractual: String, cambiara: String): List[String] = {
 if (
-	((coloractual == "en-rojo") && (cambiara == "verde")) ||
-	((coloractual == "en-verde") && (cambiara == "amarillo")) ||
-	((coloractual == "en-amarillo") && (cambiara == "rojo"))
+	((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) ||
+	((coloractual == "en-verde") && (cambiara == "verde-intermitente")) ||
+	((coloractual == "en-amarillo") && (cambiara == "amarillo-intermitente")) ||
+	((coloractual == "en-rojo-intermitente") && (cambiara == "verde")) ||
+	((coloractual == "en-verde-intermitente") && (cambiara == "amarillo")) ||
+	((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo")) 
 	) 
 {
 
@@ -22,18 +25,23 @@ if (
 	}
 }
 
+def transicion(coloractual: String, cambiara: String): List[String] = {if (((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) || ((coloractual == "en-verde") && (cambiara == "verde-intermitente")) || ((coloractual == "en-amarillo") && (cambiara == "amarillo-intermitente")) || ((coloractual == "en-rojo-intermitente") && (cambiara == "verde")) || ((coloractual == "en-verde-intermitente") && (cambiara == "amarillo")) || ((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo"))) {List(coloractual, "cambiar-a-".+(cambiara))} else {List (coloractual, "accion-por-defecto")}}
+
+
 /*
 CASOS DE PRUEBA
 Comportamiento Normal:
-	transicion("en-rojo", "verde") -> List[String] = List(en-rojo, cambiar-a-verde)
-	transicion("en-verde", "amarillo") -> List[String] = List(en-verde, cambiar-a-amarillo)
-	transicion("en-amarillo", "rojo") ->  List[String] = List(en-amarillo, cambiar-a-rojo)
+	print(transicion("en-rojo", "rojo-intermitente")) -> List(en-rojo, cambiar-a-rojo-intermitente)
+	print(transicion("en-verde", "verde-intermitente")) -> List(en-verde, cambiar-a-verde-intermitente)
+	print(transicion("en-amarillo", "amarillo-intermitente")) ->  List(en-amarillo, cambiar-a-amarillo-intermitente)
+	print(transicion("en-rojo-intermitente", "verde")) -> List(en-rojo-intermitente, cambiar-a-verde)
+	print(transicion("en-verde-intermitente", "amarillo")) -> List(en-verde-intermitente, cambiar-a-amarillo)
+	print(transicion("en-amarillo-intermitente", "rojo")) -> List(en-amarillo-intermitente, cambiar-a-rojo)
 Caso de Error:
 	transicion(8, "rojo") -> error: type mismatch;
         					found   : Int(8)
-        					required: String 
+        					required: String
 */
-
 /*
 Funcion: timer
 Naturaleza: pura
