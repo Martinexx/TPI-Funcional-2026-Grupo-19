@@ -217,34 +217,29 @@ CASOS DE PRUEBA
 |#
 
 ;;======================================================================
-;;FUNCION: color-complementario
-;;NATURALEZA: pura (Dado un simbolo, siempre devuelve un mismo simbolo)
+;;FUNCION: version-inter
+;;NATURALEZA: pura (Dado un color, siempre devuelve un mismo simbolo)
 ;;ESTRATEGIA: condicional
 ;;IMPACTO: no destructiva
 ;;======================================================================
 
-;;;color-complementario recibe un color y devuelve el otro simbolo que representa el mismo color
+;;;version-inter recibe un color y devuelve su version intermitente
 
-(defun color-complementario (color)
+(defun version-inter (color)
  (COND
   ((eq color 'rojo) 'rojo-intermitente)
   ((eq color 'verde) 'verde-intermitente)
-  ((eq color 'amarillo) 'amarillo-intermitente)
-  ((eq color 'rojo-intermitente) 'rojo)
-  ((eq color 'verde-intermitente) 'verde)
-  ((eq color 'amarillo-intermitente) 'amarillo)))
+  ((eq color 'amarillo) 'amarillo-intermitente)))
 
 #|
 CASOS DE PRUEBA
  Comportamiento Normal:
-  (color-complementario 'rojo) -> ROJO-INTERMITENTE
-  (color-complementario 'verde) -> VERDE-INTERMITENTE
-  (color-complementario 'amarillo) -> AMARILLO-INTERMITENTE
-  (color-complementario 'rojo-intermitente) -> ROJO
-  (color-complementario 'amarillo-intermitente) -> AMARILLO
-  (color-complementario 'verde-intermitente) -> VERDE
+  (version-inter 'rojo) -> ROJO-INTERMITENTE
+  (version-inter 'verde) -> VERDE-INTERMITENTE
+  (version-inter 'amarillo) -> AMARILLO-INTERMITENTE
  Comportamiento Alternativo:
-  (color-complementario 'texto) -> NIL
+  (version-inter 'texto) -> NIL
+  (version-inter 67) -> NIL
 |#
 
 ;;===============================================================================
@@ -254,26 +249,27 @@ CASOS DE PRUEBA
 ;;IMPACTO: no destructiva
 ;;===============================================================================
 
-;;;veces-periodo recibe 2 tiempos unix (inicio y fin de un intervalo) y un color, devuelve cuantas veces aparece el color en ese intervalo de tiempo 
-;;;tambien teniendo en cuenta como aparicion que el ciclo comience con la version intermitente del color
+;;;veces-periodo recibe 2 tiempos unix (inicio y fin de un intervalo) y un color (rojo, verde o amarillo), devuelve cuantas veces aparece 
+;;;el color en ese intervalo de tiempo, tambien teniendo en cuenta como aparicion que el periodo comience con la version intermitente del 
+;;;color parametro
 
 (defun veces-periodo (ini fin color)
  (COND ((> ini fin) 0)
-       ((OR (eq (timer ini) color) (eq (timer ini) (color-complementario color))) 
+       ((OR (eq (timer ini) color) (eq (timer ini) (version-inter color))) 
        (+ 1 (veces-periodo (proximo-color ini) fin color)))
        (t (veces-periodo (proximo-color ini) fin color))))
 
 #|
 CASOS DE PRUEBA
  Comportamiento Normal:
-  (veces_periodo 1781299243 1781302843 'rojo) -> 16
-  (veces_periodo 1781299243 1781302843 'verde) -> 17
-  (veces_periodo 1781299243 1781302843 'amarillo) -> 16
+  (veces-periodo 1781299243 1781302843 'rojo) -> 16
+  (veces-periodo 1781299243 1781302843 'verde) -> 17
+  (veces-periodo 1781299243 1781302843 'amarillo) -> 16
  Comportamiento Alternativo:
-  (veces_periodo 1781299243 1781302843 'no-color) -> 0
+  (veces-periodo 1781299243 1781302843 'no-color) -> 0
  Caso de Error:
-  (veces_periodo 0 2300000 'rojo) -> Program stack overflow. RESET
-  (veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
+  (veces-periodo 0 2300000 'rojo) -> Program stack overflow. RESET
+  (veces-periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
 |#
 
 ;;========================================================================
@@ -288,7 +284,7 @@ CASOS DE PRUEBA
 ;;; siendo % el porcentaje de aparicion como numero decimal (float)
 
 (defun distribucionPorcentual (horaUnix)
- (mapcar (lambda (color) (list color (float (/ (* (veces_periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces_periodo horaUnix (+ horaUnix 3600) 'rojo) (veces_periodo horaUnix (+ horaUnix 3600) 'verde) (veces_periodo horaUnix (+ horaUnix 3600) 'amarillo)))))) 
+ (mapcar (lambda (color) (list color (float (/ (* (veces-periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces-periodo horaUnix (+ horaUnix 3600) 'rojo) (veces-periodo horaUnix (+ horaUnix 3600) 'verde) (veces-periodo horaUnix (+ horaUnix 3600) 'amarillo)))))) 
   '(rojo verde amarillo)))
 
 #|
