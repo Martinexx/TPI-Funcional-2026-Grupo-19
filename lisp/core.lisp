@@ -159,30 +159,29 @@ CASOS DE PRUEBA
   (recomendacion-ciclo 'no-num) -> <: NO-NUM is not a real number
 |#
 
-#|
-FUNCION: ciclos-por-tiempo
-NATURALEZA: Pura
-ESTRATEGIA: Division tiempoTotal/ciclo
-IMPACTO: No destructiva
-|#
+;;==============================================================================================
+;;FUNCION: ciclos-por-tiempo
+;;NATURALEZA: Pura (Dada una cantidad de minutos, siempre devuelve la misma cantidad de ciclos)
+;;ESTRATEGIA: Division tiempoTotal/ciclo
+;;IMPACTO: No destructiva
+;;==============================================================================================
 
 ;;;ciclos-por-tiempo calcula la cantidad de ciclos completos que entran en cierta cantidad de minutos
 
 (defun ciclos-por-tiempo (minutos) 
-  (values (TRUNCATE (/ (* minutos 60) (duracion-ciclo)))))
+ (values (TRUNCATE (/ (* minutos 60) (duracion-ciclo)))))
 
-;Si se le pasa solo un número a truncate este devuelve la parte entera y la parte decimal del número por separado, 
-;devuelve 2 valores, pero al usarse como entrada de otra funcion, esta tomara solo el primer valor devuelto,
-;values toma ese unico valor, la parte entera del argumento de truncate y lo devuelve.
+;;Cuando una funcion esta como argumento de otra siempre la funcion externa tomara solo el primer valor que devuelva la funcion interna 
+;;truncate devuelve la parte entera y la decimal de la division, values devuelve solo la parte entera
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal: 
-	(ciclos-por-tiempo 60) -> 16
-	(ciclos-por-tiempo 123) -> 32
+ Comportamiento Normal: 
+  (ciclos-por-tiempo 60) -> 16
+  (ciclos-por-tiempo 123) -> 32
 
-Caso de error: 
-	(ciclos-por-tiempo 'no-num) -> *: NO-NUM is not a number
+ Caso de error: 
+  (ciclos-por-tiempo 'no-num) -> *: NO-NUM is not a number
 |#
 
 #|
