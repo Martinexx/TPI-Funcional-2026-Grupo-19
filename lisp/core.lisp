@@ -5,6 +5,8 @@ ESTRATEGIA: Construccion de lista + condicional
 IMPACTO: No destructiva
 |#
 
+;;; transicion recibe dos colores y retorna una lista despues de evaluar dichos colores
+
 (defun transicion (color-actual cambiar-a)
  (list color-actual 
   (cond  ((AND (equalp color-actual 'en-amarillo-intermitente) (equalp cambiar-a 'rojo)) "cambiar-a-rojo")
@@ -32,6 +34,8 @@ NATURALEZA: pura
 ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
+
+;;;timer recibe tiempounix y determina de que color está el semáforo en ese momento
 
 (defun timer (tiempo-actual)
 (COND   ((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
@@ -62,6 +66,8 @@ Caso de Error:
  	IMPACTO: No Destructiva
  	=================================== |#
 
+;;registrar-auditoria imprime el cuando y el resultado de evaluar la transicion de dos colores
+
 (defun registrar-auditoria (color-anterior color-nuevo)
 (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
 (local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
@@ -81,6 +87,8 @@ NATURALEZA: impura
 ESTRATEGIA: reutiliza otras funciones para cumplir con lo pedido
 IMPACTO: No destructivo
 |#
+
+;;;informe guarda la impresion de registrar-auditoria en un archivo de texto, si no existe crea dicho .txt y lo guarda
 
 (defun informe (color-anterior color-nuevo)
 (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append)
@@ -103,6 +111,8 @@ Estrategia: suma la duracion de cada color
 Impacto: no destructiva
 |#
 
+;;;duracion-ciclo calcula el valor del ciclo con intermitencia
+
 (defun duracion-ciclo ()
 	(+ 90 3 120 3 6 3))
 
@@ -117,6 +127,8 @@ NATURALEZA: pura
 ESTRATEGIA: condicional
 IMPACTO: no destructiva
 |#
+
+;;;recomendacion-ciclo determina el estado de un ciclo y aconseja una optimizacion
 
 (defun recomendacion-ciclo (duracion-ciclo)
 (cond  ((< duracion-ciclo 35) "llegue al minimo de 35")
@@ -140,6 +152,8 @@ NATURALEZA: Pura
 ESTRATEGIA: Division tiempoTotal/ciclo
 IMPACTO: No destructiva
 |#
+
+;;;ciclos-por-tiempo calcula la cantidad de ciclos completos que entran en cierta cantidad de minutos
 
 (defun ciclos-por-tiempo (minutos) 
   (values (TRUNCATE (/ (* minutos 60) (duracion-ciclo)))))
