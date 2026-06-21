@@ -1,3 +1,7 @@
+(Load "C:/Users/Valen/quicklisp/setup.lisp") ;debe utilizar su propia ruta
+(quicklisp-quickstart:install)
+(ql:quickload :Local-time)
+
 #|
 FUNCION: Transicion
 NATURALEZA: Pura
