@@ -116,21 +116,21 @@ CASOS DE PRUEBA
   5 'amarillo - Tiempo [formato pedido]: la luz ha cambiado de 5  a 'accion-por-defecto
 |#
 
-#|
-Funcion: duracion-ciclo
-Naturaleza: pura
-Estrategia: suma la duracion de cada color
-Impacto: no destructiva
-|#
+;;==================================================
+;;FUNCION: duracion-ciclo
+;;NATURALEZA: pura (siempre devuelve el mismo valor)
+;;ESTRATEGIA: suma la duracion de cada color
+;;IMPACTO: no destructiva
+;;==================================================
 
-;;;duracion-ciclo calcula el valor del ciclo con intermitencia
+;;;duracion-ciclo calcula los segundos del ciclo con intermitencia
 
 (defun duracion-ciclo ()
 	(+ 90 3 120 3 6 3))
 
 #|
 CASO DE PRUEBA
-	(duracion-ciclo) -> 225
+ (duracion-ciclo) -> 225
 |#
 
 #|
