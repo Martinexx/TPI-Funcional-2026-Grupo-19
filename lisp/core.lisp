@@ -13,15 +13,15 @@
 ;;; parametro cambiar-a 
 
 (defun transicion (color-actual cambiar-a)
-	(list color-actual (cond 
-							((AND (eq color-actual 'en-rojo) (eq cambiar-a 'rojo-intermitente)) "cambiar-a-rojo-intermitente")
-							((AND (eq color-actual 'en-verde) (eq cambiar-a 'verde-intermitente)) "cambiar-a-verde-intermitente")
-							((AND (eq color-actual 'en-amarillo) (eq cambiar-a 'amarillo-intermitente)) "cambiar-a-amarillo-intermitente")
+ (list color-actual (cond 
+					 ((AND (eq color-actual 'en-rojo) (eq cambiar-a 'rojo-intermitente)) "cambiar-a-rojo-intermitente")
+					 ((AND (eq color-actual 'en-verde) (eq cambiar-a 'verde-intermitente)) "cambiar-a-verde-intermitente")
+					 ((AND (eq color-actual 'en-amarillo) (eq cambiar-a 'amarillo-intermitente)) "cambiar-a-amarillo-intermitente")
 
-							((AND (eq color-actual 'en-rojo-intermitente) (eq cambiar-a 'verde)) "cambiar-a-verde")
-							((AND (eq color-actual 'en-verde-intermitente) (eq cambiar-a 'amarillo)) "cambiar-a-amarillo")
-							((AND (eq color-actual 'en-amarillo-intermitente) (eq cambiar-a 'rojo)) "cambiar-a-rojo")
-							(t 'accion-por-defecto))))
+					 ((AND (eq color-actual 'en-rojo-intermitente) (eq cambiar-a 'verde)) "cambiar-a-verde")
+					 ((AND (eq color-actual 'en-verde-intermitente) (eq cambiar-a 'amarillo)) "cambiar-a-amarillo")
+					 ((AND (eq color-actual 'en-amarillo-intermitente) (eq cambiar-a 'rojo)) "cambiar-a-rojo")
+					 (t 'accion-por-defecto))))
 
 #|
 CASOS DE PRUEBA
