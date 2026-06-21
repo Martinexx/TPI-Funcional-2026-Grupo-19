@@ -216,32 +216,35 @@ CASOS DE PRUEBA
   (proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
 |#
 
-#|
-FUNCION: color-complementario
-NATURALEZA: pura
-ESTRATEGIA: condicional
-IMPACTO: no destructiva
-|#
+;;======================================================================
+;;FUNCION: color-complementario
+;;NATURALEZA: pura (Dado un simbolo, siempre devuelve un mismo simbolo)
+;;ESTRATEGIA: condicional
+;;IMPACTO: no destructiva
+;;======================================================================
+
+;;;color-complementario recibe un color y devuelve el otro simbolo que representa el mismo color
 
 (defun color-complementario (color)
-  (COND ((equal color 'rojo) 'rojo-intermitente)
-		((equal color 'verde) 'verde-intermitente)
-		((equal color 'amarillo) 'amarillo-intermitente)
-		((equal color 'rojo-intermitente) 'rojo)
-		((equal color 'verde-intermitente) 'verde)
-		((equal color 'amarillo-intermitente) 'amarillo)))
+ (COND
+  ((eq color 'rojo) 'rojo-intermitente)
+  ((eq color 'verde) 'verde-intermitente)
+  ((eq color 'amarillo) 'amarillo-intermitente)
+  ((eq color 'rojo-intermitente) 'rojo)
+  ((eq color 'verde-intermitente) 'verde)
+  ((eq color 'amarillo-intermitente) 'amarillo)))
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal:
-	(color-complementario 'rojo) -> ROJO-INTERMITENTE
-	(color-complementario 'verde) -> VERDE-INTERMITENTE
-	(color-complementario 'amarillo) -> AMARILLO-INTERMITENTE
-	(color-complementario 'rojo-intermitente) -> ROJO
-	(color-complementario 'amarillo-intermitente) -> AMARILLO
-	(color-complementario 'verde-intermitente) -> VERDE
-Comportamiento Alternativo:
-	(color-complementario 'texto) -> NIL
+ Comportamiento Normal:
+  (color-complementario 'rojo) -> ROJO-INTERMITENTE
+  (color-complementario 'verde) -> VERDE-INTERMITENTE
+  (color-complementario 'amarillo) -> AMARILLO-INTERMITENTE
+  (color-complementario 'rojo-intermitente) -> ROJO
+  (color-complementario 'amarillo-intermitente) -> AMARILLO
+  (color-complementario 'verde-intermitente) -> VERDE
+ Comportamiento Alternativo:
+  (color-complementario 'texto) -> NIL
 |#
 
 #|
