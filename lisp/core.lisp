@@ -70,27 +70,27 @@ CASOS DE PRUEBA
   (timer '(lista)) ->	MOD: (LISTA) is not a real number	
 |#
 
-#|	===================================
- 	FUNCIÓN: registrar-auditoria
-	NATURALEZA: Impura (Escribe en la salida estándar)
- 	ESTRATEGIA: Simple
- 	IMPACTO: No Destructiva
- 	=================================== |#
+;;==================================================
+;;FUNCIÓN: registrar-auditoria
+;;NATURALEZA: Impura (Escribe en la salida estándar)
+;;ESTRATEGIA: Simple
+;;IMPACTO: No Destructiva
+;;==================================================
 
-;;registrar-auditoria imprime el cuando y el resultado de evaluar la transicion de dos colores
+;;;registrar-auditoria imprime el cuando y el resultado de evaluar la transicion de dos colores
 
 (defun registrar-auditoria (color-anterior color-nuevo)
-(format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
-(local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
-(CAR (transicion color-anterior color-nuevo))  (CADR (transicion color-anterior color-nuevo ))))
-
+ (format t "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"  
+  (local-time:format-timestring nil (local-time:now):format '((:year 4) "-" (:month 2) "-" (:day 2) " " (:hour 2) ":" (:min 2)))
+  (FIRST (transicion color-anterior color-nuevo))  (SECOND (transicion color-anterior color-nuevo ))))
 
 #|
-Casos de pruebas:
-Caso normal: (registrar-auditoria 'en-rojo 'verde) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a cambiar-a-verde"
-Caso alternativo: (registrar-auditoria 'en-rojo 'rojo) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a 'accion-por-defecto"
+CASOS DE PRUEBA
+ Caso Normal: 
+  (registrar-auditoria 'en-rojo 'verde) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a cambiar-a-verde"
+ Caso Alternativo: 
+  (registrar-auditoria 'en-rojo 'rojo) -> "Tiempo [instante en el que se ejecuta la funcion con el formato requerido]: la luz ha cambiado de 'en-rojo a 'accion-por-defecto"
 |#
-
 
 #|
 FUNCION: informe
