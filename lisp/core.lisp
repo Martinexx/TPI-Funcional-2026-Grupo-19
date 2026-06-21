@@ -2,12 +2,12 @@
 (quicklisp-quickstart:install)
 (ql:quickload :Local-time)
 
-====================================================================================
+;;===================================================================================
 ;;FUNCION: Transicion
 ;;NATURALEZA: Pura (Dados dos simbolos en un orden, siempre devuelve la misma lista)
 ;;ESTRATEGIA: Construccion de lista + condicional
 ;;IMPACTO: No destructiva
-====================================================================================
+;;===================================================================================
 
 ;;; transicion recibe dos colores y retorna una lista de la forma (color-actual "cambiar-a-cambiar-a"), "cambiar-a-" seguido del valor del 
 ;;; parametro cambiar-a 
@@ -39,14 +39,14 @@ CASOS DE PRUEBA
   (transicion 'cualquier-cosa 8) -> (CUALQUIER-COSA ACCION-POR-DEFECTO)	
 |#		
 
-#|
-NOMBRE: timer
-NATURALEZA: pura
-ESTRATEGIA: condicional
-IMPACTO: no destructiva
-|#
+;;========================================================================
+;;FUNCION: timer
+;;NATURALEZA: pura (Dado un tiempo unix, siempre devuelve el mismo color)
+;;ESTRATEGIA: condicional + aritmetica
+;;IMPACTO: no destructiva
+;;========================================================================
 
-;;;timer recibe tiempounix y determina de que color está el semáforo en ese momento
+;;;timer recibe tiempo unix y determina de que color está el semáforo en ese momento
 
 (defun timer (tiempo-actual)
 (COND   ((<= (MOD tiempo-actual (duracion-ciclo)) 89) 'rojo)
@@ -58,16 +58,16 @@ IMPACTO: no destructiva
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal:
-	(timer 1781245161) -> ROJO
-	(timer 1781245215) -> ROJO-INTERMITENTE 
-	(timer 1781245268) -> VERDE 
-	(timer 1781245338) -> VERDE-INTERMITENTE
-	(timer 17812455520) -> AMARILLO
-	(timer 17812455522) -> AMARILLO-INTERMITENTE
+ Comportamiento Normal:
+  (timer 1781245161) -> ROJO
+  (timer 1781245215) -> ROJO-INTERMITENTE 
+  (timer 1781245268) -> VERDE 
+  (timer 1781245338) -> VERDE-INTERMITENTE
+  (timer 17812455520) -> AMARILLO
+  (timer 17812455522) -> AMARILLO-INTERMITENTE
 
-Caso de Error:
-	(timer '(lista)) ->	MOD: (LISTA) is not a real number	
+ Caso de Error:
+  (timer '(lista)) ->	MOD: (LISTA) is not a real number	
 |#
 
 #|	===================================
