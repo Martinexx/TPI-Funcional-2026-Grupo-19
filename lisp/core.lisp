@@ -126,36 +126,37 @@ CASOS DE PRUEBA
 ;;;duracion-ciclo calcula los segundos del ciclo con intermitencia
 
 (defun duracion-ciclo ()
-	(+ 90 3 120 3 6 3))
+ (+ 90 3 120 3 6 3))
 
 #|
 CASO DE PRUEBA
  (duracion-ciclo) -> 225
 |#
 
-#|
-NOMBRE: recomendacion-ciclo
-NATURALEZA: pura
-ESTRATEGIA: condicional
-IMPACTO: no destructiva
-|#
+;;============================================================================
+;;FUNCION: recomendacion-ciclo
+;;NATURALEZA: pura (Dada una duracion siempre devuelve la misma recomendacion)
+;;ESTRATEGIA: condicional
+;;IMPACTO: no destructiva
+;;============================================================================
 
-;;;recomendacion-ciclo determina el estado de un ciclo y aconseja una optimizacion
+;;;recomendacion-ciclo determina como es la duracion de un ciclo, corta, ideal o larga y aconseja una optimizacion
 
-(defun recomendacion-ciclo (duracion-ciclo)
-(cond  ((< duracion-ciclo 35) "llegue al minimo de 35")
-		((> duracion-ciclo 150) "baje hasta 150")
-		(t "esta en rango optimo")))
+(defun recomendacion-ciclo (duracion)
+ (cond ((< duracion 35) "llegue al minimo de 35")
+	   ((> duracion 150) "baje hasta 150")
+	   (t "esta en rango optimo")))
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal: 
-	(recomendacion-ciclo 20) -> "llegue al minimo de 35"
-	(recomendacion-ciclo 100) -> "esta en rango optimo"
-	(recomendacion-ciclo 200) -> "baje hasta 150"
-	
-Caso de error:
-	(recomendacion-ciclo #C(0 1)) -> <: #C(0 1) is not a real number
+ Comportamiento Normal: 
+  (recomendacion-ciclo 20) -> "llegue al minimo de 35"
+  (recomendacion-ciclo 100) -> "esta en rango optimo"
+  (recomendacion-ciclo 200) -> "baje hasta 150"
+ 
+ Caso de Error:
+  (recomendacion-ciclo #C(0 1)) -> <: #C(0 1) is not a real number
+  (recomendacion-ciclo 'no-num) -> <: NO-NUM is not a real number
 |#
 
 #|
