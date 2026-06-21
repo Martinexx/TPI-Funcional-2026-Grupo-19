@@ -247,30 +247,33 @@ CASOS DE PRUEBA
   (color-complementario 'texto) -> NIL
 |#
 
-#|
-FUNCION: veces_periodo
-NATURALEZA: pura
-ESTRATEGIA: recursividad multiple 
-IMPACTO: no destructiva
-|#
+;;===============================================================================
+;;FUNCION: veces-periodo
+;;NATURALEZA: pura (Dado un periodo y color, siempre devuelve la misma cantidad)
+;;ESTRATEGIA: recursividad multiple 
+;;IMPACTO: no destructiva
+;;===============================================================================
 
-(defun veces_periodo (ini fin color)
-	(COND ((> ini fin) 0)
-		((OR (equal (timer ini) color) (equal (timer ini) (color-complementario color))) 
-		(+ 1 (veces_periodo (proximo-color ini) fin color)))
-		(t (veces_periodo (proximo-color ini) fin color))))
+;;;veces-periodo recibe 2 tiempos unix (inicio y fin de un intervalo) y un color, devuelve cuantas veces aparece el color en ese intervalo de tiempo 
+;;;tambien teniendo en cuenta como aparicion que el ciclo comience con la version intermitente del color
+
+(defun veces-periodo (ini fin color)
+ (COND ((> ini fin) 0)
+       ((OR (eq (timer ini) color) (eq (timer ini) (color-complementario color))) 
+       (+ 1 (veces-periodo (proximo-color ini) fin color)))
+       (t (veces-periodo (proximo-color ini) fin color))))
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal:
-	(veces_periodo 1781299243 1781302843 'rojo) -> 16
-	(veces_periodo 1781299243 1781302843 'verde) -> 17
-	(veces_periodo 1781299243 1781302843 'amarillo) -> 16
-Comportamiento Alternativo:
-	(veces_periodo 1781299243 1781302843 'no-color) -> 0
-Caso de error:
-	(veces_periodo 0 2300000 'rojo) -> Program stack overflow. RESET
-	(veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
+ Comportamiento Normal:
+  (veces_periodo 1781299243 1781302843 'rojo) -> 16
+  (veces_periodo 1781299243 1781302843 'verde) -> 17
+  (veces_periodo 1781299243 1781302843 'amarillo) -> 16
+ Comportamiento Alternativo:
+  (veces_periodo 1781299243 1781302843 'no-color) -> 0
+ Caso de Error:
+  (veces_periodo 0 2300000 'rojo) -> Program stack overflow. RESET
+  (veces_periodo 1781299243 'no-num 'amarillo) -> >: NO-NUM is not a real number
 |#
 
 #|
