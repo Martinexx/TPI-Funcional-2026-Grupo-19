@@ -184,33 +184,36 @@ CASOS DE PRUEBA
   (ciclos-por-tiempo 'no-num) -> *: NO-NUM is not a number
 |#
 
-#|
-FUNCION: proximo-color
-NATURALEZA: pura
-ESTRATEGIA: aritmetica, condicional  
-IMPACTO: no destructiva
-|#
+;;========================================================================
+;;FUNCION: proximo-color
+;;NATURALEZA: pura (Dado un tiempo unix, devuelve siempre el mismo color)
+;;ESTRATEGIA: aritmetica, condicional  
+;;IMPACTO: no destructiva
+;;========================================================================
+
+;;;proximo-color recibe un tiempo unix y lo devuelve adelantado hasta el primer segundo del siguente color del ciclo,
+;;;sin tener en cuenta las intermitencias como colores distintos
 
 (defun proximo-color (horaUnix)
-  (+ (- horaUnix (MOD horaUnix (duracion-ciclo))) 
-	(cond ((equal (timer horaUnix) 'rojo) 93)
-		  ((equal (timer horaUnix) 'rojo-intermitente) 93)
-          ((equal (timer horaUnix) 'verde) 216)
-		  ((equal (timer horaUnix) 'verde-intermitente) 216)
-		  ((equal (timer horaUnix) 'amarillo) 225)
-		   ((equal (timer horaUnix) 'amarillo-intermitente) 225))))
+ (+ (- horaUnix (MOD horaUnix (duracion-ciclo))) (cond 
+										  		  ((eq (timer horaUnix) 'rojo) 93)
+												  ((eq (timer horaUnix) 'rojo-intermitente) 93)
+												  ((eq (timer horaUnix) 'verde) 216)
+												  ((eq (timer horaUnix) 'verde-intermitente) 216)
+												  ((eq (timer horaUnix) 'amarillo) 225)
+												  ((eq (timer horaUnix) 'amarillo-intermitente) 225))))
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal:
-	(proximo-color 1781245161) -> 1781245218 
-	(proximo-color 1781245215) -> 1781245218
-	(proximo-color 1781245268) -> 1781245341
-	(proximo-color 1781245338) -> 1781245341
-	(proximo-color 17812455520) -> 17812455525
-	(proximo-color 17812455522) -> 17812455525
-Caso de error:
-	(proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
+ Comportamiento Normal:
+  (proximo-color 1781245161) -> 1781245218 
+  (proximo-color 1781245215) -> 1781245218
+  (proximo-color 1781245268) -> 1781245341
+  (proximo-color 1781245338) -> 1781245341
+  (proximo-color 17812455520) -> 17812455525
+  (proximo-color 17812455522) -> 17812455525
+ Caso de Error:
+  (proximo-color 'no-num) -> MOD: NO-NUM is not a real number	
 |#
 
 #|
