@@ -25,18 +25,18 @@
 
 #|
 CASOS DE PRUEBA
-Comportamiento Normal:
-	(transicion 'en-rojo 'rojo-intermitente) -> (EN-ROJO "cambiar-a-rojo-intermitente")
-	(transicion 'en-rojo-intermitente 'verde) -> (EN-ROJO-INTERMITENTE "cambiar-a-verde")
-	(transicion 'en-verde 'verde-intermitente) -> (EN-VERDE "cambiar-a-verde-intermitente")
-	(transicion 'en-verde-intermitente 'amarillo) -> (EN-VERDE-INTERMITENTE "cambiar-a-amarillo")
-	(transicion 'en-amarillo 'amarillo-intermitente) -> (EN-AMARILLO "cambiar-a-amarillo-intermitente")
-	(transicion 'en-amarillo-intermitente 'rojo) ->	(EN-AMARILLO-INTERMITENTE "cambiar-a-rojo")	
+ Comportamiento Normal:
+  (transicion 'en-rojo 'rojo-intermitente) -> (EN-ROJO "cambiar-a-rojo-intermitente")
+  (transicion 'en-rojo-intermitente 'verde) -> (EN-ROJO-INTERMITENTE "cambiar-a-verde")
+  (transicion 'en-verde 'verde-intermitente) -> (EN-VERDE "cambiar-a-verde-intermitente")
+  (transicion 'en-verde-intermitente 'amarillo) -> (EN-VERDE-INTERMITENTE "cambiar-a-amarillo")
+  (transicion 'en-amarillo 'amarillo-intermitente) -> (EN-AMARILLO "cambiar-a-amarillo-intermitente")
+  (transicion 'en-amarillo-intermitente 'rojo) ->	(EN-AMARILLO-INTERMITENTE "cambiar-a-rojo")	
 
-Comportamiento Alternativo:	
-	(transicion 'en-rojo-intermitente 'amarillo) -> (EN-ROJO-INTERMITENTE ACCION-POR-DEFECTO)
-	(transicion 'en-verde-intermitente 'verde-intermitente) -> (EN-VERDE-INTERMITENTE ACCION-POR-DEFECTO)
-	(transicion 'cualquier-cosa 8) -> (CUALQUIER-COSA ACCION-POR-DEFECTO)	
+ Comportamiento Alternativo:	
+  (transicion 'en-rojo-intermitente 'amarillo) -> (EN-ROJO-INTERMITENTE ACCION-POR-DEFECTO)
+  (transicion 'en-verde-intermitente 'verde-intermitente) -> (EN-VERDE-INTERMITENTE ACCION-POR-DEFECTO)
+  (transicion 'cualquier-cosa 8) -> (CUALQUIER-COSA ACCION-POR-DEFECTO)	
 |#		
 
 #|
