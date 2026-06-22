@@ -15,12 +15,12 @@
 ### Paradigmas y Lenguajes de Programación
 #### Trabajo Integrador - 2026 - 1er Cuatrimestre
 
-**Docentes**
+**Docentes**  
 <small>Responsable: Msc. Ricardo Monzón</small>  
 <small>JTP: Ringa, Mónica - Rodríguez, Leandro</small>  
 <small>Ayudantes de 1°: Mascazzini Matías - Ramírez, Walter</small>
  
-**Autores**
+**Autores**  
 <small>Jara Rey Valentino</small>  
 <small>López Lautaro Hernan</small>
 
