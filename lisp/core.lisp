@@ -73,7 +73,7 @@ CASOS DE PRUEBA
 ;;==================================================
 ;;FUNCIÓN: registrar-auditoria
 ;;NATURALEZA: Impura (Escribe en la salida estándar)
-;;ESTRATEGIA: Simple
+;;ESTRATEGIA: uso de otras funciones + localtime
 ;;IMPACTO: No Destructiva
 ;;==================================================
 
