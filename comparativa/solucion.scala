@@ -1,3 +1,6 @@
+/*Objeto singlenton Semaforo, contiene transicion y timer como metodos propios*/
+object Semaforo {
+
 /*
 FUNCION: transicion
 NATURALEZA: pura
@@ -6,24 +9,16 @@ IMPACTO: no destructiva
 */
 
 def transicion(coloractual: String, cambiara: String): List[String] = {
-if (
-	((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) ||
+if (((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) ||
 	((coloractual == "en-verde") && (cambiara == "verde-intermitente")) ||
 	((coloractual == "en-amarillo") && (cambiara == "amarillo-intermitente")) ||
 	((coloractual == "en-rojo-intermitente") && (cambiara == "verde")) ||
 	((coloractual == "en-verde-intermitente") && (cambiara == "amarillo")) ||
-	((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo")) 
-	) 
-{
-
-	List(coloractual, "cambiar-a-".+(cambiara))
-
-} else {
-
-	List (coloractual, "accion-por-defecto")
-
-	}
-}
+	((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo")) ) 
+	
+{List(coloractual, "cambiar-a-".+(cambiara))} 
+	
+else {List (coloractual, "accion-por-defecto")}}
 
 /*
 CASOS DE PRUEBA
@@ -53,10 +48,7 @@ def timer (segundos:Int): String = {
 		case segundos if ((segundos % 225) <= 212) => "verde"
 		case segundos if ((segundos % 225) <= 215) => "verde-intermitente"
 		case segundos if ((segundos % 225) <= 221) => "amarillo"
-		case _ => "amarillo-intermitente"
-	}
-}
-
+		case _ => "amarillo-intermitente"}}
 /*
 CASOS DE PRUEBA
 Comportamiento Normal:
@@ -72,36 +64,4 @@ Caso de Error:
         					found   : String("a")
         					required: Int
 */
-
-/*
-Objeto singlenton Semaforo, contiene transicion y timer como metodos propios
-*/
-object Semaforo {
-
-		def transicion (coloractual: String, cambiara: String): List[String] = {
-		if (/*no se puede pasar de un color al siguiente si el actual no es intermitente*/
-		((coloractual == "en-rojo-intermitente") && (cambiara == "verde")) ||
-		((coloractual == "en-amarillo-intermitente") && (cambiara == "rojo")) ||
-		((coloractual == "en-verde-intermitente") && (cambiara == "amarillo")) ||
-		((coloractual == "en-rojo") && (cambiara == "rojo-intermitente")) ||
-		((coloractual == "en-amarillo") && (cambiara == "amarillo-intermitente")) ||
-		((coloractual == "en-verde") && (cambiara == "verde-intermitente"))) 
-
-		{List(coloractual, cambiara)} 
-
-		else 
-
-		{List (coloractual, "accion-por-defecto")}	
-		}
-
-		def timer (segundos:Int): String = {
-			segundos match {
-				case segundos if ((segundos % 225) <= 89) => "rojo"
-				case segundos if ((segundos % 225) <= 92) => "rojo-intermitente"
-				case segundos if ((segundos % 225) <= 212) => "verde"
-				case segundos if ((segundos % 225) <= 215) => "verde-intermitente"
-				case segundos if ((segundos % 225) <= 221) => "amarillo"
-				case _ => "amarillo-intermitente"
-			}
-		}
 }
