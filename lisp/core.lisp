@@ -273,25 +273,25 @@ CASOS DE PRUEBA
 |#
 
 ;;========================================================================
-;;FUNCION: distribucionPorcentual
+;;FUNCION: distribucion-porcentual
 ;;NATURALEZA: pura (Dado un tiempo unix, siempre devuelve la misma lista)
 ;;ESTRATEGIA: orden superior (mapcar + lambda) 
 ;;IMPACTO: no destructiva
 ;;========================================================================
 
-;;;distribucionPorcentual recibe un tiempo unix y devuelve una lista con el porcentaje de aparicion de los colores desde el tiempo 
+;;;distribucion-porcentual recibe un tiempo unix y devuelve una lista con el porcentaje de aparicion de los colores desde el tiempo 
 ;;;recibido hasta una hora mas, la lista tiene la forma: ((ROJO %) (VERDE %) (AMARILLO %))
 ;;; siendo % el porcentaje de aparicion como numero decimal (float)
 
-(defun distribucionPorcentual (horaUnix)
+(defun distribucion-porcentual (horaUnix)
  (mapcar (lambda (color) (list color (float (/ (* (veces-periodo horaUnix (+ horaUnix 3600) color) 100) (+ (veces-periodo horaUnix (+ horaUnix 3600) 'rojo) (veces-periodo horaUnix (+ horaUnix 3600) 'verde) (veces-periodo horaUnix (+ horaUnix 3600) 'amarillo)))))) 
   '(rojo verde amarillo)))
 
 #|
 CASOS DE PRUEBA
  Comportamiento Normal:
-  (distribucionPorcentual 1781381026) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
-  (distribucionPorcentual 1781373826) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
+  (distribucion-porcentual 1781381026) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
+  (distribucion-porcentual 1781373826) -> ((ROJO 34.69388) (VERDE 32.65306) (AMARILLO 32.65306))
  Caso de Error:
-  (distribucionPorcentual 'texto) -> +: TEXTO is not a number
+  (distribucion-porcentual 'texto) -> +: TEXTO is not a number
 |#
